@@ -15,20 +15,20 @@ class FormatData:
                 FormatData.nested_dicts(value, separator) for value in data
             ]
 
-        object = {}
+        nested_data = {}
 
         for key, value in data.items():
             if separator in key:
                 principal, rest = key.split(separator, 1)
 
-                object.update({
-                    principal: FormatData.nested_dicts({**object.get(principal, {}), rest: value}, separator)
+                nested_data.update({
+                    principal: FormatData.nested_dicts({**nested_data.get(principal, {}), rest: value}, separator)
                 })
 
             else:
-                object.update({key: value})
+                nested_data.update({key: value})
 
-        return object
+        return nested_data
 
     @staticmethod
     def type(coordinates: UserLocationCordinates) -> UserTypesEnum:

@@ -1,4 +1,4 @@
-import requests
+import aiohttp
 
 from typing import Type
 from fastapi import Depends, status
@@ -15,27 +15,25 @@ class StatesRepository(Respository[State]):
         self.storage = storage
 
     async def populate(self) -> Type["StatesRepository"]:
-        self.storage.states = await \
-            self.read()
+        async with aiohttp.ClientSession() as request:
+            response = await request.get(
+                f"{settings.IBGE_DATA_URL}/estados"
+            )
+
+            if response.status == status.HTTP_200_OK:
+                self.storage.states = (self.storage.states or []) + [
+                    State(**state)
+                        for state in await response.json()
+                ]
 
         return self
 
     async def read(self) -> list[State]:
-        if self.storage.states:
-            return self.storage.states
-
-        response = requests.get(
-            f"{settings.IBGE_DATA_URL}/estados"
-        )
-
-        return [
-            State(**state)
-                for state in response.json()
-        ] if response.status_code == status.HTTP_200_OK else []
+        return self.storage.states
 
     async def read_one(self, parameters: StateDto.ReadOne) -> State:
         return next(filter(
             lambda state: state.name.lower() == parameters.name.lower(),
-                self.storage.states
+                await self.read()
             ), None
         )

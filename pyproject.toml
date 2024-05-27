@@ -15,6 +15,7 @@ pyjwt = "^2.8.0"
 prettyconf = "^2.2.1"
 requests = "^2.32.2"
 inflection = "^0.5.1"
+aiohttp = "^3.9.5"
 
 [tool.poetry.group.dev.dependencies]
 faker = "^25.2.0"
@@ -46,6 +47,7 @@ ignore = [
     "B004",
     "B009",
     "N802",
+    "N815",
     "E722",
     "FA100",
     "FA102",

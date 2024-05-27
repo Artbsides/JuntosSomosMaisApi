@@ -7,7 +7,7 @@ from api.shared_resources.entities.paginated import Paginated
 
 
 class UsersService:
-    def __init__(self, users_repository: UsersRepository = Depends()):
+    def __init__(self, users_repository: UsersRepository = Depends()) -> None:
         self.users_repository = users_repository
 
     async def read(self, parameters: UserDto.Read) -> Paginated[User]:

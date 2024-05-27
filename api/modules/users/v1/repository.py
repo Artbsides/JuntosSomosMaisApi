@@ -1,7 +1,7 @@
 import csv
-import requests
+import aiohttp
 
-from typing import Type, Optional
+from typing import Type
 from fastapi import Depends, status
 
 from api.confs.settings import settings
@@ -22,30 +22,33 @@ class UsersRepository(Respository[User]):
 
     async def populate(self) -> Type["UsersRepository"]:
         for file_extension in ["json", "csv"]:
-            response = requests.get(
-                f"{settings.JSM_DATA_URL}/input-backend.{file_extension}"
-            )
+            users: list[dict] = []
 
-            if response.status_code == status.HTTP_200_OK:
-                users: Optional[list[dict]] = None
+            async with aiohttp.ClientSession() as request:
+                response = await request.get(
+                    f"{settings.JSM_DATA_URL}/input-backend.{file_extension}"
+                )
 
-                if file_extension == "json":
-                    users = response.json()["results"]
+                if response.status == status.HTTP_200_OK:
+                    if file_extension == "json":
+                        users = dict(await response.json()).get("results", [])
 
-                else:
-                    users = FormatData.nested_dicts(list(
-                        csv.DictReader(
-                            response.content.decode("utf-8-sig").splitlines()
-                        )
-                    ))
+                    else:
+                        users = FormatData.nested_dicts(list(
+                            csv.DictReader(
+                                bytes(await response.read()).decode("utf-8-sig").splitlines()
+                            )
+                        ))
 
-                for user in users:
-                    user["location"]["region"] = (
-                        await self.states_repository
-                            .read_one(StateDto.ReadOne(name=user["location"]["state"]))
-                    ).region
+            for user in users:
+                user["location"]["region"] = (
+                    await self.states_repository
+                        .read_one(StateDto.ReadOne(name=user["location"]["state"]))
+                ).region
 
-                    self.storage.users = (self.storage.users or []) + [User(**user)]
+                self.storage.users = (self.storage.users or []) + [
+                    User(**user)
+                ]
 
         return self
 
