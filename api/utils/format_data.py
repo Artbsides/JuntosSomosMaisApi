@@ -1,9 +1,10 @@
 import re
+
 from typing import Union
 
-from api.modules.users.v1.entities.user_location_cordinates import UserLocationCordinates
-from api.modules.users.v1.enums.user_types import UserTypesEnum
 from api.shared_resources.enums.countries import CountriesEnum
+from api.modules.users.v1.enums.user_types import UserTypesEnum
+from api.modules.users.v1.entities.user_location_cordinates import UserLocationCordinates
 
 
 class FormatData:

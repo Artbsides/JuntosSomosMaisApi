@@ -1,9 +1,9 @@
 from fastapi import Depends
 
+from api.routers.router import router
+from api.modules.users.v1.service import UsersService
 from api.modules.users.v1.dtos.user import UserDto
 from api.modules.users.v1.entities.user import User
-from api.modules.users.v1.service import UsersService
-from api.routers.router import router
 from api.shared_resources.entities.paginated import Paginated
 
 

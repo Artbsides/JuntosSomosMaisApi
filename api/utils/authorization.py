@@ -1,9 +1,8 @@
 import jwt
 
 from typing import Optional
-
 from fastapi import Request
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from api.confs.settings import settings
 from api.exceptions.throws.unauthorized_token_error import UnauthorizedTokenError

@@ -1,5 +1,5 @@
 from typing import Type
-from pydantic import BaseModel, Field, model_validator
+from pydantic import Field, BaseModel, model_validator
 
 from api.shared_resources.enums.regions import RegionsEnum
 

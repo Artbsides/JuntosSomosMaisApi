@@ -1,19 +1,17 @@
-from contextlib import asynccontextmanager
+from mangum import Mangum
 from typing import AsyncGenerator
-
 from fastapi import Depends, FastAPI
+from contextlib import asynccontextmanager
 from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException
 
-from mangum import Mangum
-
+from api.confs.settings import settings
+from api.routers.router import router
+from api.utils.authorization import Authorization
+from api.shared_resources.storage import Storage
+from api.modules.users.v1.repository import UsersRepository
 from api.exceptions.exception_handler import ExceptionHandler
 from api.modules.states.v1.repository import StatesRepository
-from api.modules.users.v1.repository import UsersRepository
-from api.routers.router import router
-from api.confs.settings import settings
-from api.shared_resources.storage import Storage
-from api.utils.authorization import Authorization
 
 
 @asynccontextmanager

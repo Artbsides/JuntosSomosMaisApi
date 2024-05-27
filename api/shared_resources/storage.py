@@ -1,7 +1,7 @@
-from typing import Optional, Type
+from typing import Type, Optional
 
-from api.modules.states.v1.entities.state import State
 from api.modules.users.v1.entities.user import User
+from api.modules.states.v1.entities.state import State
 
 
 class Storage:
