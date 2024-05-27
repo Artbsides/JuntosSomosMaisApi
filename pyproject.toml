@@ -58,6 +58,14 @@ ignore = [
     "PLW2901"
 ]
 
+[tool.ruff.flake8-bugbear]
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.params.Depends",
+    "fastapi.Query",
+    "fastapi.params.Query"
+]
+
 [tool.ruff.extend-per-file-ignores]
 "tests/**/*.py" = [
     "S101"
