@@ -1,7 +1,7 @@
 import csv
 import requests
 
-from typing import Optional
+from typing import Optional, Type
 from fastapi import Depends, status
 
 from api.modules.states.v1.dtos.state import StateDto
@@ -16,11 +16,11 @@ from api.confs.settings import settings
 
 
 class UsersRepository(Respository[User]):
-    def __init__(self, storage: Storage = Depends(), states_repository: StatesRepository = Depends()):
+    def __init__(self, storage: Storage = Depends(), states_repository: StatesRepository = Depends()) -> None:
         self.storage = storage
         self.states_repository = states_repository
 
-    async def populate(self) -> "UsersRepository":
+    async def populate(self) -> Type["UsersRepository"]:
         for file_extension in ["json", "csv"]:
             response = requests.get(
                 f"{settings.JSM_DATA_URL}/input-backend.{file_extension}"

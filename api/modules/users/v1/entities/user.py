@@ -1,4 +1,5 @@
-from pydantic import BaseModel, model_validator
+from typing import Type
+from pydantic import BaseModel, model_serializer, model_validator
 
 from api.modules.users.v1.entities.user_location import UserLocation
 from api.modules.users.v1.entities.user_location_cordinates import UserLocationCordinates
@@ -23,7 +24,7 @@ class User(BaseModel):
 
     @model_validator(mode="before")
     @classmethod
-    def format_data(cls, data: dict) -> dict:
+    def format_data(cls: Type["User"], data: dict) -> dict:
         data.update({
             "type": FormatData.type(
                 UserLocationCordinates(**data["location"]["coordinates"])

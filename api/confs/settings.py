@@ -45,7 +45,7 @@ class TestsConfig(BaseConfig):
 
 
 @lru_cache
-def get_environment_settings():
+def get_environment_settings() -> BaseConfig:
     config_cls_dict = {
         "production": ProductionConfig,
         "development": DevelopmentConfig,
@@ -57,4 +57,4 @@ def get_environment_settings():
     ]()
 
 
-settings: BaseConfig = get_environment_settings()
+settings = get_environment_settings()

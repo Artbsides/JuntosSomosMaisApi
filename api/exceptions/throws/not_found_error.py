@@ -1,8 +1,9 @@
+from typing import ClassVar
 from fastapi import status
 
 
-class NotFound(Exception):
-    args = {
+class NotFoundError(Exception):
+    args: ClassVar[dict[str, str]] = {
         "message": "Resource not found"
     }
 

@@ -12,11 +12,6 @@ router_settings = {
 }
 
 
-@router.get("/users",
-    **router_settings, response_model=Paginated[User]
-)
-async def read(
-    parameters: UserDto.Read = Depends(),
-    users_service: UsersService = Depends()
-):
+@router.get("/users", **router_settings)
+async def read(parameters: UserDto.Read = Depends(), users_service: UsersService = Depends()) -> Paginated[User]:
     return await users_service.read(parameters)

@@ -1,8 +1,9 @@
+from typing import ClassVar
 from fastapi import status
 
 
 class UnauthorizedTokenError(Exception):
-    args = {
+    args: ClassVar[dict[str, str]] = {
         "message": "Check your bearer token, you might not be authorized"
     }
 

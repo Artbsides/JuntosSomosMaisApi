@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Type
 import requests
 
 from fastapi import Depends, status
@@ -11,16 +11,16 @@ from api.confs.settings import settings
 
 
 class StatesRepository(Respository[State]):
-    def __init__(self, storage: Storage = Depends()):
+    def __init__(self, storage: Storage = Depends()) -> None:
         self.storage = storage
 
-    async def populate(self) -> "StatesRepository":
+    async def populate(self) -> Type["StatesRepository"]:
         self.storage.states = await \
             self.read()
 
         return self
 
-    async def read(self):
+    async def read(self) -> list[State]:
         if self.storage.states:
             return self.storage.states
 

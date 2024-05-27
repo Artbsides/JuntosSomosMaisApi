@@ -14,7 +14,8 @@ logger = logging.getLogger("uvicorn")
 
 
 class ExceptionHandler:
-    def throw(request: Request, exception: Exception) -> JSONResponse:
+    @staticmethod
+    def throw(_: Request, exception: Exception) -> JSONResponse:
         module = type(exception).__name__
 
         try:
@@ -24,7 +25,7 @@ class ExceptionHandler:
             exception = InternalServerError(e)
 
             logger.exception(
-                f"Application exception: {uuid4()}"
+                "Application exception: %s", uuid4()
             )
 
         response = {

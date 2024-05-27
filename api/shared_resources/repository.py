@@ -1,6 +1,4 @@
-from functools import reduce
-from typing import Generic, Optional, TypeVar
-
+from typing import Generic, TypeVar
 from pydantic import BaseModel
 
 from api.shared_resources.dtos.pagination import PaginationDto
@@ -27,7 +25,7 @@ class Respository(Generic[Entity]):
             entity for entity in data
                 if matches(entity, parameters.model_dump(exclude_none=True, exclude_unset=True))
         ]
-    
+
     async def paginate(self, data: list[Entity], pagination: PaginationDto) -> list[Entity]:
         skip = 0
 

@@ -81,7 +81,7 @@ coverage:  ## Run tests and write coverage html
 	@poetry run pytest --cov-report=html:tests/reports
 
 code-convention:  ## Run code convention. fix-imports=true
-	@poetry run ruff check -q api tests ; \
+	@poetry run ruff check -q api tests; \
 		poetry run isort $(if $(filter "$(fix-imports)", "true"),,--check) . -q
 
 build:  ## Generate build

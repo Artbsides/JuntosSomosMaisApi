@@ -1,8 +1,9 @@
+from typing import ClassVar
 from fastapi import status
 
 
 class InternalServerError(Exception):
-    args = {
+    args: ClassVar[dict[str, str]] = {
         "message": "An internal error occurred"
     }
 

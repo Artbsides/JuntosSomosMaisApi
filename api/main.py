@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from typing import AsyncGenerator
 
 from fastapi import Depends, FastAPI
 from fastapi.exceptions import RequestValidationError
@@ -16,7 +17,9 @@ from api.utils.authorization import Authorization
 
 
 @asynccontextmanager
-async def lifespan(_: FastAPI, storage = Storage()):
+async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
+    storage = Storage()
+
     await UsersRepository(
         storage, await StatesRepository(storage).populate()
     ).populate()

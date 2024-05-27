@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any
+from typing import Any, Type
 
 
 class UserClassificationByEnum(Enum):
@@ -8,8 +8,8 @@ class UserClassificationByEnum(Enum):
     gender: str = "gender"
 
     @classmethod
-    def _missing_(self, value: Any) -> "UserClassificationByEnum":
+    def _missing_(cls: Type["UserClassificationByEnum"], value: Any) -> Type["UserClassificationByEnum"]:
         if value == "default":
-            return self.name
+            return cls.name
 
         return None
