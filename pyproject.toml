@@ -16,6 +16,13 @@ prettyconf = "^2.2.1"
 requests = "^2.32.2"
 inflection = "^0.5.1"
 
+[tool.poetry.group.dev.dependencies]
+faker = "^25.2.0"
+pytest = "^8.2.1"
+pytest-cov = "^5.0.0"
+ruff = "^0.4.5"
+isort = "^5.13.2"
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
 python_files = ["*.py"]
@@ -61,8 +68,8 @@ max-args = 3
 max-returns = 4
 
 [tool.isort]
-indent = 2
-line_length = 120
+indent = 4
+line_length = 127
 multi_line_output = 2
 include_trailing_comma = false
 force_grid_wrap = 0
