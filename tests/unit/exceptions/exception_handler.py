@@ -2,8 +2,8 @@ from fastapi import Request, status
 from unittest import mock
 from fastapi.responses import JSONResponse
 
+from api.exceptions.errors.not_found import NotFoundError
 from api.exceptions.exception_handler import ExceptionHandler
-from api.exceptions.errors.not_found_error import NotFoundError
 
 
 class TestExceptionHandler:

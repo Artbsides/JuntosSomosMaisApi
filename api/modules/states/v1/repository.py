@@ -29,7 +29,7 @@ class StatesRepository(Respository[State]):
         return self
 
     async def read(self) -> list[State]:
-        return self.storage.states
+        return self.storage.states or []
 
     async def read_one(self, parameters: StateDto.ReadOne) -> State:
         return next(filter(
