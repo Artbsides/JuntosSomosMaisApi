@@ -1,33 +1,37 @@
 import re
 
-from api.modules.users.v1.entities.user_location_cordinates import UserLocationCordinates
-from api.modules.users.v1.enums.user_types import UserTypesEnum
+from typing import Union
+
 from api.shared_resources.enums.countries import CountriesEnum
+from api.modules.users.v1.enums.user_types import UserTypesEnum
+from api.modules.users.v1.entities.user_location_cordinates import UserLocationCordinates
 
 
 class FormatData:
-    def nested_dicts(data, separator: str = "__"):
+    @staticmethod
+    def nested_dicts(data: Union[list[dict], tuple[dict], dict], separator: str = "__") -> dict:
         if isinstance(data, (list, tuple)):
             return [
                 FormatData.nested_dicts(value, separator) for value in data
             ]
 
-        object = {}
+        nested_data = {}
 
         for key, value in data.items():
             if separator in key:
-                principal, resto = key.split(separator, 1)
+                principal, rest = key.split(separator, 1)
 
-                object.update({
-                    principal: FormatData.nested_dicts({**object.get(principal, {}), resto: value}, separator)
+                nested_data.update({
+                    principal: FormatData.nested_dicts({**nested_data.get(principal, {}), rest: value}, separator)
                 })
 
             else:
-                object.update({key: value})
+                nested_data.update({key: value})
 
-        return object
+        return nested_data
 
-    def type(coordinates: UserLocationCordinates):
+    @staticmethod
+    def type(coordinates: UserLocationCordinates) -> UserTypesEnum:
         coordinate_ranges = {
             UserTypesEnum.normal: [
                 {
@@ -53,12 +57,13 @@ class FormatData:
             ]
         }
 
-        for type, ranges in coordinate_ranges.items():
+        for coordinate_type, ranges in coordinate_ranges.items():
             for r in ranges:
                 if r["maxlon"] <= coordinates.longitude <= r["minlon"] and r["minlat"] <= coordinates.latitude <= r["maxlat"]:
-                    return type
+                    return coordinate_type
 
         return UserTypesEnum.laborious
 
+    @staticmethod
     def phone_number(number: str, ddi: str = CountriesEnum.DDI.br.value) -> str:
         return f"{ddi}{re.sub(r"\D", "", number)}"

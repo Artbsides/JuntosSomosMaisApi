@@ -15,12 +15,20 @@ pyjwt = "^2.8.0"
 prettyconf = "^2.2.1"
 requests = "^2.32.2"
 inflection = "^0.5.1"
+aiohttp = "^3.9.5"
+
+[tool.poetry.group.dev.dependencies]
+faker = "^25.2.0"
+ruff = "^0.4.5"
+isort = "^5.13.2"
+pytest-cov = "^5.0.0"
+pytest-asyncio = "^0.23.7"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
 python_files = ["*.py"]
-python_classes = ["*UnitTests", "*IntegrationTests"]
-python_functions = ["*Test"]
+python_classes = ["Test*"]
+python_functions = ["*test"]
 addopts = "--tb=native --cov-report=term-missing --cov=."
 asyncio_mode = "auto"
 testpaths = ["tests"]
@@ -39,6 +47,7 @@ ignore = [
     "B004",
     "B009",
     "N802",
+    "N815",
     "E722",
     "FA100",
     "FA102",
@@ -51,6 +60,14 @@ ignore = [
     "PLW2901"
 ]
 
+[tool.ruff.flake8-bugbear]
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.params.Depends",
+    "fastapi.Query",
+    "fastapi.params.Query"
+]
+
 [tool.ruff.extend-per-file-ignores]
 "tests/**/*.py" = [
     "S101"
@@ -61,8 +78,8 @@ max-args = 3
 max-returns = 4
 
 [tool.isort]
-indent = 2
-line_length = 120
+indent = 4
+line_length = 127
 multi_line_output = 2
 include_trailing_comma = false
 force_grid_wrap = 0
@@ -71,10 +88,7 @@ remove_redundant_aliases = true
 lines_between_types = 1
 lines_after_imports = 2
 length_sort = true
-src_paths = [
-    "tests",
-    "estoca_authorization"
-]
+src_paths = ["api", "tests"]
 
 sections = [
     "THIRDPARTY",

@@ -1,25 +1,19 @@
 import jwt
 
-from typing import Optional
-
 from fastapi import Request
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi.security import HTTPBearer
 
 from api.confs.settings import settings
-from api.exceptions.throws.unauthorized_token_error import UnauthorizedTokenError
+from api.exceptions.errors.unauthorized_token_error import UnauthorizedTokenError
 
 
 class Authorization(HTTPBearer):
-    def __init__(self) -> None:
-        super(Authorization, self).__init__()
-
-    async def __call__(self, request: Request) -> Optional[HTTPAuthorizationCredentials]:
+    async def __call__(self, request: Request) -> None:
         try:
-            authorization = await super(Authorization, self).__call__(request)
+            authorization = await super().__call__(request)
 
             jwt.decode(
                 authorization.credentials, settings.JWT_SECRET, [settings.JWT_ALGORITHM]
             )
-
-        except Exception:
-            raise UnauthorizedTokenError
+        except Exception as e:
+            raise UnauthorizedTokenError from e
