@@ -19,16 +19,16 @@ aiohttp = "^3.9.5"
 
 [tool.poetry.group.dev.dependencies]
 faker = "^25.2.0"
-pytest = "^8.2.1"
-pytest-cov = "^5.0.0"
 ruff = "^0.4.5"
 isort = "^5.13.2"
+pytest-cov = "^5.0.0"
+pytest-asyncio = "^0.23.7"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
 python_files = ["*.py"]
-python_classes = ["*UnitTests", "*IntegrationTests"]
-python_functions = ["*Test"]
+python_classes = ["Test*"]
+python_functions = ["*test"]
 addopts = "--tb=native --cov-report=term-missing --cov=."
 asyncio_mode = "auto"
 testpaths = ["tests"]
@@ -88,10 +88,7 @@ remove_redundant_aliases = true
 lines_between_types = 1
 lines_after_imports = 2
 length_sort = true
-src_paths = [
-    "api",
-    "tests"
-]
+src_paths = ["api", "tests"]
 
 sections = [
     "THIRDPARTY",

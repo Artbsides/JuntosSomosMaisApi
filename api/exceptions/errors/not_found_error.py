@@ -1,8 +1,10 @@
 from typing import ClassVar
 from fastapi import status
 
+from api.exceptions.errors.api_base_exception import ApiBaseException
 
-class NotFoundError(Exception):
+
+class NotFoundError(ApiBaseException):
     args: ClassVar[dict[str, str]] = {
         "message": "Resource not found"
     }
