@@ -54,7 +54,7 @@ class UsersRepository(Respository[User]):
 
     async def read(self, parameters: UserDto.Read) -> Paginated[User]:
         users = await self.filter(
-            self.storage.users, parameters.filters
+            self.storage.users or [], parameters.filters
         )
 
         return Paginated[User](

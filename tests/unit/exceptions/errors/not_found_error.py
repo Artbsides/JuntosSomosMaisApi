@@ -1,6 +1,6 @@
 from fastapi import status
 
-from api.exceptions.errors.not_found_error import NotFoundError
+from api.exceptions.errors.not_found import NotFoundError
 
 
 class TestNotFound:

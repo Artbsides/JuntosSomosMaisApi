@@ -1,7 +1,7 @@
 from fastapi import status
 from fastapi.exceptions import ValidationException
 
-from api.exceptions.errors.request_validation_error import RequestValidationError
+from api.exceptions.errors.request_validation import RequestValidationError
 
 
 class TestRequestValidationError:

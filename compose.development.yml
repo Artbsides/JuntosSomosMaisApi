@@ -1,0 +1,18 @@
+services:
+    api: &api
+        image: juntos-somos-mais:development
+        command: ${COMPOSE_DEVELOPMENT_COMMAND:-}
+        build:
+            target: development
+        environment:
+            PYDEVD_DISABLE_FILE_VALIDATION: "true"
+        ports:
+            - ${APP_HOST_PORT}:${APP_HOST_PORT}
+            - ${APP_DEBUG_PORT}:${APP_DEBUG_PORT}
+        volumes:
+            - ./api:/app/api
+            - ./tests:/app/tests
+
+    runner:
+        <<: *api
+        command: /bin/ash

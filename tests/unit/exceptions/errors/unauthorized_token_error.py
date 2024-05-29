@@ -1,6 +1,6 @@
 from fastapi import status
 
-from api.exceptions.errors.unauthorized_token_error import UnauthorizedTokenError
+from api.exceptions.errors.unauthorized_token import UnauthorizedTokenError
 
 
 class TestUnauthorizedTokenError:

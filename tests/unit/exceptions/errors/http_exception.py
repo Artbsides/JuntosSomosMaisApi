@@ -1,16 +1,16 @@
 import pytest
 
 from fastapi import status
-from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.exceptions import HTTPException
 
-from api.exceptions.errors.http_exception import HTTPException
-from api.exceptions.errors.internal_server_error import InternalServerError
+from api.exceptions.errors.http_exception import HTTPExceptionError
+from api.exceptions.errors.internal_server import InternalServerError
 
 
-class TestHTTPException:
+class TestHTTPExceptionError:
     def http_exception_mapped_error_successful_test(self) -> None:
-        exception = HTTPException(
-            StarletteHTTPException(status_code=status.HTTP_404_NOT_FOUND)
+        exception = HTTPExceptionError(
+            HTTPException(status_code=status.HTTP_404_NOT_FOUND)
         )
 
         assert exception.args is not None
@@ -18,8 +18,8 @@ class TestHTTPException:
 
     def http_exception_not_mapped_error_successful_test(self) -> None:
         with pytest.raises(InternalServerError) as exception:
-            HTTPException(
-                StarletteHTTPException(status_code=status.HTTP_400_BAD_REQUEST)
+            HTTPExceptionError(
+                HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
             )
 
         assert exception.value.args is not None

@@ -4,7 +4,7 @@ from fastapi import Request
 from fastapi.security import HTTPBearer
 
 from api.confs.settings import settings
-from api.exceptions.errors.unauthorized_token_error import UnauthorizedTokenError
+from api.exceptions.errors.unauthorized_token import UnauthorizedTokenError
 
 
 class Authorization(HTTPBearer):

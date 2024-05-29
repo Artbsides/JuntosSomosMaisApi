@@ -11,6 +11,14 @@ class BaseConfig:
         default="test", cast=str
     )
 
+    APP_HOST = config("APP_HOST",
+        default="0.0.0.0", cast=str
+    )
+
+    APP_HOST_PORT = config("APP_HOST_PORT",
+        default=8000, cast=int
+    )
+
     APP_PREFIX = config("APP_PREFIX",
         default="", cast=str
     )

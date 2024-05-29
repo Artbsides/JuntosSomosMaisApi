@@ -5,6 +5,11 @@ PYTHON = /usr/bin/python3
 
 PYTHON_VERSION = 3.12.3
 
+
+-include .env
+export
+
+
 define PRINT_HELP_PYSCRIPT
 import re, sys
 
@@ -23,6 +28,7 @@ MAKEFLAGS += --silent
 help:
 	@echo "Usage  : make <command>"
 	@echo "Options:"
+
 	@$(PYTHON) -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 
@@ -84,8 +90,36 @@ code-convention:  ## Run code convention. fix-imports=true
 	@poetry run ruff check -q api tests; \
 		poetry run isort $(if $(filter "$(fix-imports)", "true"),,--check) . -q
 
-build:  ## Generate build
-	echo "..."
+build:  ## Build docker images
+	@docker-compose build
+
+	@echo
+	@docker-compose -f compose.yml -f compose.development.yml build
+
+run:  ## Run api. mode=terminal
+	@if [ -z "$(mode)" ]; then
+		APP_DEBUG="false" APP_ENVIRONMENT=production docker-compose up api --wait
+	elif [ "$(mode)" = "terminal" ]; then
+		docker-compose run --rm runner
+	else
+		echo ==== Mode not found.
+	fi
+
+run-debug:  ## Run debuggable api. terminal=true|false
+	@if [ -z "$(mode)" ]; then
+		COMPOSE_DEVELOPMENT_COMMAND="python -m debugpy --listen ${APP_HOST}:${APP_DEBUG_PORT} -m uvicorn api.main:app --host ${APP_HOST} --port ${APP_HOST_PORT} --reload" \
+			docker-compose -f compose.yml -f compose.development.yml up api --wait
+	elif [ "$(mode)" = "terminal" ]; then
+		docker-compose -f compose.yml -f compose.development.yml run --rm runner
+	else
+		echo ==== Mode not found.
+	fi
+
+run-monitoring: -B  ## Run monitoring
+	@docker-compose up -d prometheus grafana --wait
+
+stop:  ## Stop api
+	@docker-compose down
 
 version:  ## Set package version. update-to=[0-9].[0-9].[0-9]
 	@poetry version $(if $(update-to), $(update-to), -s)

@@ -1,6 +1,6 @@
 from fastapi import status
 
-from api.exceptions.errors.internal_server_error import InternalServerError
+from api.exceptions.errors.internal_server import InternalServerError
 
 
 class TestInternalServerError:

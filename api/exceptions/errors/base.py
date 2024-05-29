@@ -1,6 +1,6 @@
 from typing import Optional
 
 
-class ApiBaseException(BaseException):
+class BaseError(Exception):
     args: Optional[dict[str, str]] = None
     status_code: int
