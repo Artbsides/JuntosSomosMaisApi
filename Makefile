@@ -60,23 +60,23 @@ coverage:  ## Run tests and write coverage html
 version:  ## Set package version. update-to=[0-9].[0-9].[0-9]
 	@poetry version $(if $(update-to), $(update-to), -s)
 
-run:  ## Run dockerized api or terminal. mode=api|terminal
-	@if [ "$(mode)" = "api" ]; then
+run:  ## Run dockerized api or terminal. target=api|terminal
+	@if [ "$(target)" = "api" ]; then
 		APP_DEBUG="false" APP_ENVIRONMENT=production docker-compose up api --wait
-	elif [ "$(mode)" = "terminal" ]; then
+	elif [ "$(target)" = "terminal" ]; then
 		docker-compose run --rm runner
 	else
-		echo ==== Mode not found.
+		echo ==== Target not found.
 	fi
 
-run-debug:  ## Run dockerized debuggable api or terminal. mode=api|terminal
-	@if [ "$(mode)" = "api" ]; then
+run-debug:  ## Run dockerized development api or terminal. target=api|terminal
+	@if [ "$(target)" = "api" ]; then
 		COMPOSE_DEVELOPMENT_COMMAND="python -m debugpy --listen ${APP_HOST}:${APP_DEBUG_PORT} -m uvicorn api.main:app --host ${APP_HOST} --port ${APP_HOST_PORT} --reload" \
 			docker-compose -f compose.yml -f compose.development.yml up api --wait
-	elif [ "$(mode)" = "terminal" ]; then
+	elif [ "$(target)" = "terminal" ]; then
 		docker-compose -f compose.yml -f compose.development.yml run --rm runner
 	else
-		echo ==== Mode not found.
+		echo ==== Target not found.
 	fi
 
 monitoring:  ## Run dockerized monitoring

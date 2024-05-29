@@ -1,4 +1,4 @@
-FROM python:3.12.3-alpine AS debuggable
+FROM python:3.12.3-alpine AS development
 
 WORKDIR /app
 
@@ -16,8 +16,8 @@ FROM python:3.12.3-alpine
 
 WORKDIR /app
 
-COPY --from=debuggable /app/pyproject.toml /app/poetry.lock ./
-COPY --from=debuggable /app/api ./api
+COPY --from=development /app/pyproject.toml /app/poetry.lock ./
+COPY --from=development /app/api ./api
 
 RUN pip3 install poetry && \
     poetry config virtualenvs.create false && \

@@ -9,8 +9,7 @@
             "args": [
                 "api.main:app", "--reload"
             ],
-            "jinja": true,
-            "justMyCode": false
+            "justMyCode": true
         },
         {
             "name": "Api: Attach",
@@ -25,7 +24,8 @@
                     "localRoot": "${workspaceFolder}",
                     "remoteRoot": "."
                 }
-            ]
+            ],
+            "justMyCode": true
         }
     ]
 }
