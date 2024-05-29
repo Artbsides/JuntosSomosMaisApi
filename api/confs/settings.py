@@ -12,7 +12,7 @@ class BaseConfig:
     )
 
     APP_HOST = config("APP_HOST",
-        default="0.0.0.0", cast=str
+        default="127.0.0.1", cast=str
     )
 
     APP_HOST_PORT = config("APP_HOST_PORT",

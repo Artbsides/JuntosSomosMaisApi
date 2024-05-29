@@ -1,8 +1,8 @@
 groups:
-  - name: JuntosSomosMais Alerts
+  - name: JuntosSomosMaisApi Alerts
     rules:
       - alert: ApiHealth
-        expr: up{job="JuntosSomosMais"} < 1
+        expr: up{job="JuntosSomosMaisApi"} < 1
         for: 5s
         labels:
             severity: critical

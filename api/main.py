@@ -2,8 +2,8 @@ import uvicorn
 
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
-from prometheus_fastapi_instrumentator import Instrumentator
 from starlette.exceptions import HTTPException
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from api.lifespan import lifespan
 from api.confs.settings import settings

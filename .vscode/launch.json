@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Api Launch",
+            "name": "Api: Launch",
             "type": "debugpy",
             "request": "launch",
             "module": "uvicorn",
@@ -13,7 +13,7 @@
             "justMyCode": false
         },
         {
-            "name": "Api Attach",
+            "name": "Api: Attach",
             "type": "debugpy",
             "request": "attach",
             "connect": {

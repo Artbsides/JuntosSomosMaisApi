@@ -2,9 +2,9 @@ apiVersion: 1
 
 providers:
   - name: Prometheus
-    folder: JuntosSomosMais
+    folder: JuntosSomosMaisApi
     type: file
     disableDeletion: true
     editable: false
     options:
-        path: /etc/grafana/provisioning/dashboards/juntos-somos-mais
+        path: /etc/grafana/provisioning/dashboards/juntos-somos-mais-api

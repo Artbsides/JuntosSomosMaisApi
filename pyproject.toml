@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "juntos-somos-mais"
+name = "juntos-somos-mais-api"
 version = "0.0.1"
 description = "Juntos Somos Mais Api"
 authors = ["RempelOliveira <rempel.oliveira@gmail.com>"]
