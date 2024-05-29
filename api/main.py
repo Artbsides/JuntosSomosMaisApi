@@ -19,6 +19,7 @@ app = FastAPI(
 
 app.include_router(router)
 
+
 app.add_exception_handler(Exception, ExceptionHandler.throw)
 app.add_exception_handler(HTTPException, ExceptionHandler.throw)
 app.add_exception_handler(RequestValidationError, ExceptionHandler.throw)
@@ -27,9 +28,3 @@ app.add_exception_handler(RequestValidationError, ExceptionHandler.throw)
 Instrumentator().instrument(app).expose(
     app, tags=["Monitoring"]
 )
-
-
-if __name__ == "__main__":
-    uvicorn.run(
-        "main:app", host=settings.APP_HOST, port=settings.APP_HOST_PORT
-    )
