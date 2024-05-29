@@ -1,6 +1,6 @@
 services:
     api: &api
-        image: juntos-somos-mais:development
+        image: juntos-somos-mais-api:development
         command: ${COMPOSE_DEVELOPMENT_COMMAND:-}
         build:
             target: development

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import Depends, APIRouter
 
 from api.confs.settings import settings
 from api.utils.authorization import Authorization

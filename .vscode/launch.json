@@ -2,18 +2,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Api Launch",
+            "name": "Api: Launch",
             "type": "debugpy",
             "request": "launch",
             "module": "uvicorn",
             "args": [
                 "api.main:app", "--reload"
             ],
-            "jinja": true,
-            "justMyCode": false
+            "justMyCode": true
         },
         {
-            "name": "Api Attach",
+            "name": "Api: Attach",
             "type": "debugpy",
             "request": "attach",
             "connect": {
@@ -25,7 +24,8 @@
                     "localRoot": "${workspaceFolder}",
                     "remoteRoot": "."
                 }
-            ]
+            ],
+            "justMyCode": true
         }
     ]
 }
