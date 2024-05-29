@@ -1,0 +1,25 @@
+#
+# IGNORE
+#
+
+__pycache__
+
+.venv
+.coverage
+
+.ruff_cache
+.pytest_cache
+
+.python-version
+
+.vscode/*
+**/reports
+
+dist
+
+#
+# IGNORE EXCEPTIONS
+#
+
+!.vscode/launch.json
+!.vscode/settings.json
