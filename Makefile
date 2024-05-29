@@ -47,7 +47,7 @@ build: stop  ## Build docker images
 	@echo
 	@docker-compose -f compose.yml -f compose.development.yml build
 
-tests: -B  ## Run tests. verbose=true
+tests: -B  ## Run tests. verbose=true|false
 	@poetry run pytest $(if $(filter "$(verbose)", "true"),-sxvv,)
 
 code-convention:  ## Run code convention. fix-imports=true
