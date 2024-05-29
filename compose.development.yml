@@ -10,7 +10,8 @@ services:
             - ${APP_HOST_PORT}:${APP_HOST_PORT}
             - ${APP_DEBUG_PORT}:${APP_DEBUG_PORT}
         volumes:
-            - .:/app
+            - ./api:/app/api
+            - ./tests:/app/tests
 
     runner:
         <<: *api

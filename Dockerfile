@@ -9,7 +9,8 @@ RUN pip3 install poetry && \
     poetry lock && \
     poetry install --no-root
 
-COPY . .
+COPY /api ./api
+COPY /tests ./tests
 
 FROM python:3.12.3-alpine
 
