@@ -1,0 +1,10 @@
+groups:
+  - name: JuntosSomosMais Alerts
+    rules:
+      - alert: ApiHealth
+        expr: up{job="JuntosSomosMais"} < 1
+        for: 5s
+        labels:
+            severity: critical
+        annotations:
+            summary: Api HealthCheck
