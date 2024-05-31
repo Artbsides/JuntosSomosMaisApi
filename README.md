@@ -105,7 +105,7 @@ Quanto ao deploy, esta action utiliza workflows compartihados e assim como as va
 Esta aplicação possui todas as rotas e os detalhes mais importantes exemplificados em documentação gerada pelo postman. Os arquivos da documentação estão no diretório `.docs`, assim como também, é navegável acessando a url abaixo:
 
 ```
-https://documenter.getpostman.com/view/4274276/2s93sc6DX5#intro
+https://documenter.getpostman.com/view/4274276/2sA3QtfX7a
 ```
 
 Há também a documentação  gerada pelo swagger que está acessível em ambiente de desenvolvimento através da url abaixo:

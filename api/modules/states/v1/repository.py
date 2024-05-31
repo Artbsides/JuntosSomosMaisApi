@@ -20,11 +20,10 @@ class StatesRepository(Respository[State]):
                 f"{settings.IBGE_DATA_URL}/estados"
             )
 
-            if response.status == status.HTTP_200_OK:
-                self.storage.states = (self.storage.states or []) + [
-                    State(**state)
-                        for state in await response.json()
-                ]
+            self.storage.states = (self.storage.states or []) + [
+                State(**state)
+                    for state in await response.json() if response.status == status.HTTP_200_OK
+            ]
 
         return self
 
