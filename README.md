@@ -104,6 +104,33 @@ Certifique-se de atribuir valor à variável de ambiente `JWT_SECRET` para que a
 
 Com exceção das requests feitas para as urls de documentação e monitoramento, todas as demais requests feitas para esta aplicação necessitam do header `Authorization`.
 
+* Para gerar um token válido, acesse o site do [JWT](https://jwt.io), altere a data de expiração utilizando a mesma chave de segurança configurada nas variáveis de ambiente sem encodar em Base64.
+
+```
+| ----------------------------------- |
+| Header                              |
+| ----------------------------------- |
+| {                                   |
+|     "alg": "HS256",                 |
+|     "typ": "JWT"                    |
+| }                                   |
+| ----------------------------------- |
+| Payload                             |
+| ----------------------------------- |
+| {                                   |
+|     "exp": 1916239022               |
+| }                                   |
+| ----------------------------------- |
+| Verify Signature                    |
+| ----------------------------------- |
+| HMACSHA256(                         |
+|     base64UrlEncode(header) + "." + |
+|     base64UrlEncode(payload),       |
+|     [ "secret" ]                    |
+| ) [ ] secret base64 encoded         |
+| ----------------------------------- |
+```
+
 # Workflows
 
 Foram implementadas actions que são executadas em diferentes cenários com o objetivo de aplicar testes e análise de código, assim como também, o deploy da aplicação.
