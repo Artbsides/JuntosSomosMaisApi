@@ -56,4 +56,4 @@ jobs:
 
           - name: Code Convention
             run: |
-                make code-convention
+                make code-convention && if [ $? -ne 0 ]; then exit 1; fi
