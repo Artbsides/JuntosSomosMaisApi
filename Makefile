@@ -32,32 +32,37 @@ help:
 	@$(PYTHON) -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 
-install: dependencies build tests code-convention  ## Install local api
+install: build tests code-convention  ## Build dockerized images, run tests and code convention
 
 
-dependencies:  ## Install dependencies
+dependencies:  ## Install api dependencies for local development
 	@poetry --version &> /dev/null || (pip3 install poetry && false) && \
 		poetry config virtualenvs.in-project true
 
 	@poetry install
 
-build: stop  ## Build docker images
+build: stop  ## Build dockerized images
 	@docker-compose build
 
 	@echo
 	@docker-compose -f compose.yml -f compose.development.yml build
 
-tests: -B  ## Run tests. verbose=true|false
-	@poetry run pytest $(if $(filter "$(verbose)", "true"),-sxvv,)
+tests: -B  ## Run dockerized tests. verbose=true|false
+	@docker-compose -f compose.yml -f compose.development.yml run --rm runner \
+		poetry run pytest $(if $(filter "$(verbose)", "true"),-sxvv,)
 
-code-convention:  ## Run code convention. fix-imports=true
-	@poetry run ruff check -q api tests; \
+code-convention:  ## Run dockerized code convention. fix-imports=true
+	@docker-compose -f compose.yml -f compose.development.yml run --rm runner \
+		poetry run ruff check -q api tests; \
 		poetry run isort $(if $(filter "$(fix-imports)", "true"),,--check) . -q
 
-coverage:  ## Run tests and write coverage html
-	@poetry run pytest --cov-report=html:tests/reports
+	echo ==== No errors found.
 
-version:  ## Set package version. update-to=[0-9].[0-9].[0-9]
+coverage:  ## Run dockerized tests and write reports
+	@docker-compose -f compose.yml -f compose.development.yml run --rm runner \
+		poetry run pytest --cov-report=html:tests/reports
+
+version:  ## Set the package version. update-to=[0-9].[0-9].[0-9]
 	@poetry version $(if $(update-to), $(update-to), -s)
 
 run:  ## Run dockerized api or terminal. target=api|terminal
@@ -69,7 +74,7 @@ run:  ## Run dockerized api or terminal. target=api|terminal
 		echo ==== Target not found.
 	fi
 
-run-debug:  ## Run dockerized development api or terminal. target=api|terminal
+run-debug:  ## Run dockerized api or terminal in the development environment. target=api|terminal
 	@if [ "$(target)" = "api" ]; then
 		COMPOSE_DEVELOPMENT_COMMAND="python -m debugpy --listen ${APP_HOST}:${APP_DEBUG_PORT} -m uvicorn api.main:app --host ${APP_HOST} --port ${APP_HOST_PORT} --reload" \
 			docker-compose -f compose.yml -f compose.development.yml up api --wait
@@ -82,7 +87,7 @@ run-debug:  ## Run dockerized development api or terminal. target=api|terminal
 monitoring:  ## Run dockerized monitoring
 	@docker-compose up -d prometheus grafana --wait
 
-stop:  ## Stop api
+stop:  ## Stop dockerized api, terminal and monitoring
 	@docker-compose down --volumes
 
 github-tag:  ## Manage github tags. action=create|delete tag=[0-9].[0-9].[0-9]-staging | [0-9].[0-9].[0-9]

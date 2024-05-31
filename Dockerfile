@@ -5,7 +5,7 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 
 RUN pip3 install poetry && \
-    poetry config virtualenvs.create false && \
+    poetry config virtualenvs.in-project true && \
     poetry lock && \
     poetry install --no-root
 
@@ -20,7 +20,7 @@ COPY --from=development /app/pyproject.toml /app/poetry.lock ./
 COPY --from=development /app/api ./api
 
 RUN pip3 install poetry && \
-    poetry config virtualenvs.create false && \
+    poetry config virtualenvs.in-project true && \
     poetry lock && \
     poetry install --no-root --no-dev
 

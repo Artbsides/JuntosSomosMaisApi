@@ -93,6 +93,17 @@ Há também a documentação do `Swagger`, que é gerada a partir do código da 
 http://localhost:8000/docs
 ```
 
+# Monitoramento
+
+A partir de ferramentas de instrumentação de código, a rota `/metrics` foi implementada para dispor de dados, que serão monitorados pelo `Prometheus`. Para ter aceso aos dashboards pré-configurados no `Grafana`, basta executar o comando `make monitoring` e acessar as url abaixo:
+
+```
+http://localhost:3000 (Prometheus)
+http://localhost:3001 (Grafana)
+```
+
+* As url podem levar alguns minutos para se tornarem acessíveis, o Grafana demora um pouco na primeira inicialização do container dockerizado.
+
 # Melhorias Necessárias
 
 * Implementar o versionamento de rotas a partir de headers
