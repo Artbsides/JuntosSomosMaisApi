@@ -40,10 +40,10 @@ omit = ["tests/*", "*/__init__.py"]
 fail_under = 80
 
 [tool.ruff]
-select = ["ALL"]
-tab-size = 4
+lint.select = ["ALL"]
+indent-width = 4
 line-length = 127
-ignore = [
+lint.ignore = [
     "D",
     "I",
     "B004",
@@ -62,7 +62,7 @@ ignore = [
     "PLW2901"
 ]
 
-[tool.ruff.flake8-bugbear]
+[tool.ruff.lint.flake8-bugbear]
 extend-immutable-calls = [
     "fastapi.Depends",
     "fastapi.params.Depends",
@@ -70,12 +70,12 @@ extend-immutable-calls = [
     "fastapi.params.Query"
 ]
 
-[tool.ruff.extend-per-file-ignores]
+[tool.ruff.lint.extend-per-file-ignores]
 "tests/**/*.py" = [
     "S101"
 ]
 
-[tool.ruff.pylint]
+[tool.ruff.lint.pylint]
 max-args = 3
 max-returns = 4
 
