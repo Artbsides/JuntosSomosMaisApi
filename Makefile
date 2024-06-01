@@ -65,6 +65,10 @@ tests: -B  ## Run dockerized tests - Parameters: dockerized=true, verbose=true
 code-convention:  ## Run dockerized code convention - Parameters: dockerized=true, fix-imports=true, github=true
 	DOCKER_COMPOSE=""
 
+	@if [ "$(dockerized)" = "true" ]; then
+		DOCKER_COMPOSE="docker-compose -f compose.yml -f compose.development.yml run --rm runner"
+	fi
+
 	$$DOCKER_COMPOSE poetry run ruff check . --output-format github
 
 coverage:  ## Run dockerized tests and write reports - Parameters: dockerized=true
