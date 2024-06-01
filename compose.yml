@@ -9,11 +9,9 @@ services:
         env_file:
             - .env
         ports:
-            - ${APP_HOST_PORT}:${APP_HOST_PORT}
-
-    runner:
-        <<: *api
-        command: /bin/ash
+            - ${APP_HOST_PORT:-8000}:${APP_HOST_PORT:-8000}
+        networks:
+            - api
 
     prometheus:
         image: prom/prometheus:v2.52.0
@@ -22,6 +20,8 @@ services:
             - ./.monitoring/prometheus/:/etc/prometheus/
         ports:
             - 3000:9090
+        networks:
+            - api
 
     grafana:
         image: grafana/grafana:11.0.0
@@ -36,3 +36,12 @@ services:
             - prometheus
         ports:
             - 3001:3000
+        networks:
+            - api
+
+    runner:
+        <<: *api
+        command: /bin/ash
+
+networks:
+    api:

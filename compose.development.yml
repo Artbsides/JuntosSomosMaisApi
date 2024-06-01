@@ -5,10 +5,10 @@ services:
         build:
             target: development
         environment:
-            PYDEVD_DISABLE_FILE_VALIDATION: "true"
+            PYDEVD_DISABLE_FILE_VALIDATION: true
         ports:
-            - ${APP_HOST_PORT}:${APP_HOST_PORT}
-            - ${APP_DEBUG_PORT}:${APP_DEBUG_PORT}
+            - ${APP_HOST_PORT:-8000}:${APP_HOST_PORT:-8000}
+            - 5678:5678
         volumes:
             - ./api:/app/api
             - ./tests:/app/tests
