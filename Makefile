@@ -69,7 +69,7 @@ code-convention:  ## Run dockerized code convention - Parameters: dockerized=tru
 		DOCKER_COMPOSE="docker-compose -f compose.yml -f compose.development.yml run --rm runner"
 	fi
 
-	$$DOCKER_COMPOSE poetry run ruff check api tests $(if $(filter "$(github)", "true"),--output-format github,); \
+	$$DOCKER_COMPOSE poetry run ruff check $(if $(filter "$(github)", "true"),--output-format github,) api tests; \
 		poetry run isort $(if $(filter "$(fix-imports)", "true"),,--check) . -q
 
 coverage:  ## Run dockerized tests and write reports - Parameters: dockerized=true

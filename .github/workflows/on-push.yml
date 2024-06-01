@@ -56,4 +56,4 @@ jobs:
 
           - name: Code Convention
             run: |
-                poetry run ruff check --output-format=github api tests
+                make code-convention github=true
