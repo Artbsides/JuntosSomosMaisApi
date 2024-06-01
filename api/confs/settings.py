@@ -44,6 +44,10 @@ class ProductionConfig(BaseConfig):
   ...
 
 
+class StagingConfig(BaseConfig):
+  ...
+
+
 class DevelopmentConfig(BaseConfig):
   ...
 
@@ -55,13 +59,11 @@ class TestsConfig(BaseConfig):
 @lru_cache
 def get_environment_settings() -> BaseConfig:
     config_cls_dict = {
-        "production": ProductionConfig,
-        "development": DevelopmentConfig,
-        "tests": TestsConfig,
+        "production": ProductionConfig, "staging": StagingConfig, "development": DevelopmentConfig, "tests": TestsConfig
     }
 
     return config_cls_dict[
-        BaseConfig.APP_ENVIRONMENT
+        BaseConfig.APP_ENVIRONMENT.lower()
     ]()
 
 
