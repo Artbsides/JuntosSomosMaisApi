@@ -103,7 +103,7 @@ stop:  ## Stop dockerized api, terminal and monitoring
 github-tag:  ## Manage github tags - Parameters: action=create|delete, tag=[0-9].[0-9].[0-9]-staging|[0-9].[0-9].[0-9]
 	@if [ "$(action)" = "create" ]; then
 		git tag $(tag) && git push origin $(tag)
-	elif [ "$(action)" = "uninstall" ]; then
+	elif [ "$(action)" = "delete" ]; then
 		git tag -d $(tag) && git push origin :refs/tags/$(tag)
 	else
 		echo "==== Action not found"
