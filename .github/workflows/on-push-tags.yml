@@ -1,4 +1,4 @@
-name: JuntosSomosMaisApi - on-push-tags
+name: JuntosSomosMaisApi - OnPushTags
 
 on:
     push:
@@ -7,6 +7,6 @@ on:
             - "[0-9]+.[0-9]+.[0-9]-staging"
 
 jobs:
-    reusable-workflows:
+    ReusableWorkflows:
         uses: Artbsides/ArgoCD.Deployment/.github/workflows/on-workflow-call.yml@main
         secrets: inherit
