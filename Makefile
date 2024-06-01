@@ -70,6 +70,7 @@ code-convention:  ## Run dockerized code convention - Parameters: dockerized=tru
 	fi
 
 	$$DOCKER_COMPOSE poetry run ruff check . --output-format github
+	$$DOCKER_COMPOSE poetry run isort $(if $(filter "$(fix-imports)", "true"),,--check) . -q
 
 coverage:  ## Run dockerized tests and write reports - Parameters: dockerized=true
 	DOCKER_COMPOSE=""
