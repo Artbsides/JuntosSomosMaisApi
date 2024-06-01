@@ -1,4 +1,4 @@
-name: JuntosSomosMaisApi - OnPushTags
+name: JuntosSomosMaisApi - on-push-tags
 
 on:
     push:

@@ -1,4 +1,4 @@
-name: AuthorizationPackage - OnPush
+name: AuthorizationPackage - on-push
 
 on:
     push:
