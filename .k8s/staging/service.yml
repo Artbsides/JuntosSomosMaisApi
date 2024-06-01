@@ -1,10 +1,8 @@
 kind: Service
 apiVersion: v1
-
 metadata:
     name: juntos-somos-mais-api-service
     namespace: staging-apps
-
 spec:
     selector:
         app: juntos-somos-mais-api
