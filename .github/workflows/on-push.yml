@@ -55,5 +55,4 @@ jobs:
                 make dependencies
 
           - name: Code Convention
-            run: |
-                make code-convention github=true
+            run: poetry run ruff check --output-format=github api tests
