@@ -56,4 +56,4 @@ jobs:
 
           - name: Code Convention
             run: |
-                make code-convention github=true
+                make code-convention
