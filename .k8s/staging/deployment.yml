@@ -16,7 +16,7 @@ spec:
             containers:
               - name: juntos-somos-mais-api
                 image: docker.io/rempeloliveira/public:juntos-somos-mais-api.1.0.0-staging
-                imagePullPolicy: always
+                imagePullPolicy: Always
                 ports:
                   - containerPort: 80
                 envFrom:
