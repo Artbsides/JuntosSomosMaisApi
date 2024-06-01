@@ -1,17 +1,17 @@
+from faker import Faker
+
 from api.utils.format_data import FormatData
 from api.modules.users.v1.enums.user_types import UserTypesEnum
 from api.modules.users.v1.entities.user_location_cordinates import UserLocationCordinates
 
 
 class TestFormatData:
-    def nested_dict_successful_test(self) -> None:
-        data = FormatData.nested_dicts([{
-            "string": "string", "dictionary__integer": 1
-        }])
+    def nested_dict_successful_test(self, faker: Faker) -> None:
+        random_int = faker.random_int()
 
-        assert data == [{
+        assert FormatData.nested_dicts([{"string": "string", "dictionary__integer": random_int}]) == [{
             "string": "string", "dictionary": {
-                "integer": 1
+                "integer": random_int
             }
         }]
 
