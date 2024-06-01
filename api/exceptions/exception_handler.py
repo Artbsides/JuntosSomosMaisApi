@@ -1,17 +1,12 @@
-import logging
 import importlib
 import inflection
 
-from uuid import uuid4
 from fastapi import Request, status
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException
 
 from api.exceptions.errors.base import BaseError
 from api.exceptions.errors.internal_server import InternalServerError
-
-
-logger = logging.getLogger("uvicorn")
 
 
 class ExceptionHandler:
@@ -23,12 +18,8 @@ class ExceptionHandler:
         try:
             exception = getattr(importlib.import_module(
                 f"api.exceptions.errors.{ inflection.underscore(module).replace("_error", "") }"), module)(exception)
-        except Exception as e:
-            exception = InternalServerError(e)
-
-            logger.exception(
-                "Application exception: %s", uuid4()
-            )
+        except:
+            exception = InternalServerError
 
         response = {
             "data": exception.args
