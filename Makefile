@@ -63,7 +63,7 @@ tests: -B  ## Run dockerized tests - Parameters: dockerized=true, verbose=true
 	$$DOCKER_COMPOSE poetry run pytest $(if $(filter "$(verbose)", "true"),-sxvv,)
 
 code-convention:  ## Run dockerized code convention - Parameters: dockerized=true, fix-imports=true, github=true
-	poetry run ruff check . --output-format github
+	@poetry run ruff check . --output-format github
 
 coverage:  ## Run dockerized tests and write reports - Parameters: dockerized=true
 	DOCKER_COMPOSE=""
