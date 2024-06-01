@@ -18,7 +18,7 @@ spec:
                 image: docker.io/rempeloliveira/public:juntos-somos-mais-api.1.0.0-staging
                 imagePullPolicy: Always
                 ports:
-                  - containerPort: 80
+                  - containerPort: 8000
                 envFrom:
                   - secretRef:
                         name: juntos-somos-mais-api-secrets
